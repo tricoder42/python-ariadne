@@ -4,10 +4,10 @@ Welcome to Ariadne's documentation!
 Contents:
 
 .. toctree::
-   :glob:
    :maxdepth: 2
 
-   tutorial/*
+   tutorial
+   reference
 
 Indices and tables
 ==================
