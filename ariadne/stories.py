@@ -9,8 +9,25 @@ class Story(object):
         self.actions = actions
 
     def as_scenario(self):
+        """
+        Convert story into simple scenario with single story only.
+        :return: Scenario
+        """
+
         from ariadne.scenarios import Scenario
         return Scenario([self])
+
+    def run(self, context):
+        """
+        Run all actions in story and pass context.
+
+        :param context:
+        :return: context dictionary
+        """
+
+        for action in self.actions:
+            context = action.run(context) or context
+        return context
 
 
 class Simple(Story):
