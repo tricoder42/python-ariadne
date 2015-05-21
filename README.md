@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/tricoder42/python-ariadne.svg)](https://travis-ci.org/tricoder42/python-ariadne)
+[![Coverage Status](https://coveralls.io/repos/tricoder42/python-ariadne/badge.svg)](https://coveralls.io/r/tricoder42/python-ariadne)
+
 django-ariadne
 ==============
 
