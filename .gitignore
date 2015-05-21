@@ -9,5 +9,8 @@ dist/
 *.egg-info/
 *.egg
 
+# Logs
+ghostdriver.log
+
 # PyCharm project dir
 .idea/
