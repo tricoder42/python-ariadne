@@ -39,8 +39,10 @@ setup(
 
     cmdclass={'test': PyTest},
     tests_require=[
+        'coveralls',
         'mock',
         'pytest',
+        'pytest-cov',
         'pytest-splinter',
     ],
 

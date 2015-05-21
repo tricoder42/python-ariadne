@@ -37,7 +37,7 @@ install:
 script:
   - python --version
   - django-admin.py --version
-  - py.test --cov smoked --cov-report term-missing -v tests/
+  - py.test --cov ariadne --cov-report term-missing -v tests/
 
 after_success:
   - coveralls
