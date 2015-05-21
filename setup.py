@@ -33,14 +33,15 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'django',
+        'django>=1.4',
+        'attrdict==2.0.0',
     ],
 
     cmdclass={'test': PyTest},
     tests_require=[
-        'pytest',
         'mock',
-        'tox',
+        'pytest',
+        'pytest-splinter',
     ],
 
     classifiers=[
