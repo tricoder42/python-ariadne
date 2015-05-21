@@ -18,6 +18,7 @@ class Visit(Action):
     def get_url(self):
         """
         Return target URL. May be predefined in subclass with dynamic behaviour.
+
         :return: URL to visit
         """
 

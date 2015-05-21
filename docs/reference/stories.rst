@@ -1,4 +1,5 @@
 Stories
 =======
 
-.. py:class:: stories.Simple(actions: list)
+.. automodule:: ariadne.stories
+   :members:

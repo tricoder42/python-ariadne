@@ -11,6 +11,7 @@ class Story(object):
     def as_scenario(self):
         """
         Convert story into simple scenario with single story only.
+
         :return: Scenario
         """
 
