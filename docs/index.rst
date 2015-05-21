@@ -1,5 +1,5 @@
-Welcome to Ariadne's documentation!
-===================================
+Welcome to Ariadne's |version| documentation!
+=============================================
 
 Contents:
 
