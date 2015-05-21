@@ -7,6 +7,17 @@ from setuptools.command.test import test as TestCommand
 
 import ariadne
 
+tests_require = [
+    'mock',
+    'pytest',
+    'pytest-splinter',
+]
+
+qs_require = [
+    'coveralls',
+    'pytest-cov',
+]
+
 
 class PyTest(TestCommand):
     def finalize_options(self):
@@ -19,7 +30,7 @@ class PyTest(TestCommand):
         sys.exit(pytest.main(self.test_args))
 
 setup(
-    name='ariadne',
+    name='python-ariadne',
     version=ariadne.__version__,
     license='MIT',
 
@@ -38,13 +49,11 @@ setup(
     ],
 
     cmdclass={'test': PyTest},
-    tests_require=[
-        'coveralls',
-        'mock',
-        'pytest',
-        'pytest-cov',
-        'pytest-splinter',
-    ],
+    tests_require=tests_require,
+    extras_require={
+        'test': tests_require,
+        'qa': qs_require,
+    },
 
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
