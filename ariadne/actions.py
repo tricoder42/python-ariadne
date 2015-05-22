@@ -25,11 +25,25 @@ class Visit(Action):
         return self.url
 
     def run(self, context):
-        """
-        Run action in context
-
-        :param context:
-        :return: (optional) context dictionary
-        """
-
         context.browser.visit(self.get_url())
+
+
+class FillForm(Action):
+    """
+    Fill data in form and (optionally) submit form.
+    """
+
+    def __init__(self, data=None, submit=None):
+        if data is None:
+            data = {}
+        self.data = data
+
+        if submit is True:
+            submit = '[type="submit"]'
+        self.submit = submit
+
+    def run(self, context):
+        context.browser.fill_form(self.data)
+
+        if self.submit:
+            context.browser.find_by_css(self.submit).first.click()

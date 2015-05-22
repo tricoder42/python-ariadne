@@ -5,7 +5,20 @@ import pytest
 from mock import Mock
 from attrdict import AttrDict
 
-from ariadne.actions import Visit, Action
+from ariadne.actions import Visit, Action, FillForm
+
+
+@pytest.fixture
+def ctx_browser():
+    """
+    :return: Context with mocked browser.
+    """
+
+    mock = Mock()
+    context = AttrDict({
+        'browser': mock
+    })
+    return context
 
 
 def test_action_run_not_implemented():
@@ -30,14 +43,42 @@ class TestVisit:
 
         assert action.get_url() == 'http://google.com'
 
-    def test_run(self, action):
+    def test_run(self, action, ctx_browser):
         """
         Browser should visit given URL.
         """
 
-        mock = Mock()
-        context = AttrDict({
-            'browser': mock
-        })
-        action.run(context)
-        assert mock.visit.called_with('http://google.com')
+        action.run(ctx_browser)
+        assert ctx_browser.browser.visit.called_with('http://google.com')
+
+
+class TestFillForm:
+    @property
+    def params(self):
+        return {
+            'username': 'admin',
+            'password': 'secret',
+        }
+
+    def test_run(self, ctx_browser):
+        action = FillForm(data=self.params)
+        action.run(context=ctx_browser)
+
+        ctx_browser.browser.fill_form.assert_called_with(self.params)
+        assert not ctx_browser.browser.find_by_css.called
+
+    def test_run_submit(self, ctx_browser):
+        action = FillForm(data=self.params, submit='#btn-submit')
+        action.run(context=ctx_browser)
+
+        # Assert mock
+        ctx_browser.browser.fill_form.assert_called_with(self.params)
+        ctx_browser.browser.find_by_css.assert_called_with('#btn-submit')
+
+    def test_run_submit_true(self, ctx_browser):
+        action = FillForm(data=self.params, submit=True)
+        action.run(context=ctx_browser)
+
+        # Assert mock
+        ctx_browser.browser.fill_form.assert_called_with(self.params)
+        ctx_browser.browser.find_by_css.assert_called_with('[type="submit"]')
