@@ -8,10 +8,10 @@ def splinter(driver_name='phantomjs', context=None):
     """
     Add splinter browser instance to context.
 
-    :param driver_name: The name of browser to use: phantomjs (default),
-    firefox, chrome
+    :param driver_name: The name of browser to use:
+                        phantomjs (default), firefox, chrome
     :param context: (optional) context to fill or manipulate
-    :return: new context
+    :return: updated context with ``browser`` attribute
     """
 
     if not context:
