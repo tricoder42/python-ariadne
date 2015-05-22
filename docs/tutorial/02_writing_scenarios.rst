@@ -64,4 +64,61 @@ The main difference between scenario and stories is context. Each scenario
 is executed with isolated context, while stories pass context from one to
 another. In unittest scenario would be single test case.
 
+Context and config
+------------------
+
 Now we are ready to run our scenario in browser.
+
+We mentioned context in previous section. Context is basically a dictionary
+of data which is passed through scenario and contains *persistent* object.
+Web browser is example of such object -- we need to keep state of our browser
+during whole scenario.
+
+Context are constructed using *context preprocessors* at the beginning of
+each scenario. *Context preprocessors* are simple functions which modify
+context, eg. add key ``browser`` with instantiated web browser.
+
+We use config to define used *context preprocessors*:
+
+.. code-block:: python
+
+  from ariadne.config import BaseConfig
+  from ariadne.context import browsers
+
+  class ExampleConfig(BaseConfig):
+      def context_preprocessors(self):
+          return [
+              browsers.Splinter('firefox')
+          ]
+
+Let's run it already!
+---------------------
+
+Alright. Enough talk, let's fight. We have scenarios and basic configuration,
+the last thing we need is a runner. In this case we can use very simple one:
+
+.. code-block:: python
+
+  from ariadne.runners import SimpleRunner
+
+
+  runner = SimpleRunner(config=ExampleConfig)
+  runner.add(user_login)
+
+  if __name__ == '__main__':
+      runner.run()
+
+As simple as it could be, it only run one scenario and output results to stdout.
+
+Try this file execute in Python, you should see following output:
+
+.. code-block:: shell
+
+  $ python example.py
+  Scenario 1 of 1: login_process
+  - visit http://localhost/login … OK
+  - fill form … OK
+
+That's it. You might have noticed that we haven't tested anything and you're
+100% right. We've just opened browser and filled form. If we want to test
+something, we need to write *checks*.
