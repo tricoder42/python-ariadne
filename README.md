@@ -4,5 +4,7 @@
 django-ariadne
 ==============
 
+:warning: **This library is early alpha without stable API**
+
 Functional/integration testing for websites. Right now focused on testing
 websites written in [Django](https://www.djangoproject.com) ...

@@ -1,6 +1,8 @@
 Welcome to Ariadne's |version| documentation!
 =============================================
 
+.. danger:: This library is early alpha without stable API.
+
 Contents:
 
 .. toctree::
