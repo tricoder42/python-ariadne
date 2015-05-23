@@ -25,7 +25,7 @@ def flask_app(request, caplog):
 @pytest.fixture
 def processor(request, flask_app):
     app = FlaskApp(app=flask_app)
-    request.addfinalizer(app.stop)
+    request.addfinalizer(app.teardown)
     return app
 
 

@@ -20,4 +20,5 @@ class BaseConfig(object):
         return context
 
     def context_teardown(self):
-        pass
+        for processor in self.context_processors():
+            processor.teardown()

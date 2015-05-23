@@ -67,7 +67,7 @@ class FlaskApp(Context):
         """ Returns the complete url based on server options. """
         return 'http://localhost:{0}'.format(self.port or 80)
 
-    def stop(self):
+    def teardown(self):
         """ Stop application process. """
         if self._process:
             self._process.terminate()

@@ -7,6 +7,9 @@ from attrdict import AttrDict
 class Context(object):
     """ Base class for Context classes. """
 
+    def teardown(self):
+        """ Executed in BaseConfig.context_teardown() """
+
 
 class StaticContext(Context):
     """
