@@ -10,7 +10,10 @@ import ariadne
 tests_require = [
     'mock',
     'pytest',
+    'pytest-capturelog',
     'pytest-splinter',
+
+    'flask',
 ]
 
 qs_require = [
