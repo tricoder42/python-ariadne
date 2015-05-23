@@ -64,7 +64,7 @@ class FlaskApp(Context):
     @property
     def server_url(self):
         """ Returns the complete url based on server options. """
-        return 'http://localhost:{}'.format(self.port or 80)
+        return 'http://localhost:{0}'.format(self.port or 80)
 
     def stop(self):
         """ Stop application process. """
@@ -82,4 +82,4 @@ class FlaskApp(Context):
         self.stop()
 
     def __repr__(self):
-        return '<Flask app listening at {}>'.format(self.server_url)
+        return '<Flask app listening at {0}>'.format(self.server_url)

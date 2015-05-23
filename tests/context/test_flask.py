@@ -48,7 +48,7 @@ def test_server_url(processor):
     assert processor.server_url == server_url
 
     processor.start()
-    server_url = 'http://localhost:{}'.format(processor.port)
+    server_url = 'http://localhost:{0}'.format(processor.port)
     assert processor.server_url == server_url
 
 
@@ -56,7 +56,7 @@ def test_repr(processor):
     """ Should return object representation as string. """
     processor.start()
 
-    expected = '<Flask app listening at {}>'.format(processor.server_url)
+    expected = '<Flask app listening at {0}>'.format(processor.server_url)
     assert repr(processor) == expected
 
 
