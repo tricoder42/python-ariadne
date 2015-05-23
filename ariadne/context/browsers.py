@@ -3,8 +3,10 @@ from __future__ import unicode_literals
 
 from attrdict import AttrDict
 
+from . import Context
 
-class Splinter(object):
+
+class Splinter(Context):
     """
     Add splinter browser instance and server_url to context.
 
