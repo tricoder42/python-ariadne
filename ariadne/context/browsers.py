@@ -24,6 +24,5 @@ class Splinter(Context):
         import splinter
         context.update({
             'browser': splinter.Browser(self.driver_name),
-            'server_url': 'http://localhost:8000',
         })
         return AttrDict(context)

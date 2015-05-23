@@ -16,5 +16,3 @@ def test_splinter():
     assert 'browser' in context
     assert isinstance(context.browser, BaseWebDriver)
     assert context.browser.driver_name == 'PhantomJS'
-
-    assert context.server_url == 'http://localhost:8000'
