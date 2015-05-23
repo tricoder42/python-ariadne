@@ -1,5 +1,8 @@
 # coding: utf-8
 from __future__ import unicode_literals
+
+from mock import patch
+
 from ariadne.config import BaseConfig
 
 
@@ -25,3 +28,21 @@ class TestConfig:
 
         config = ProcessorsConfig()
         assert config.context_setup() == {'simple': 'context'}
+
+    def test_context_as_contextmanager(self):
+        """
+        Test that BaseConfig.context() behaves like contextmanager. It runs
+        context_setup() on enter and context_teardown() on exit.
+        """
+
+        config = BaseConfig()
+        patch_setup = lambda: patch.object(config, 'context_setup')
+        patch_teardown = lambda: patch.object(config, 'context_teardown')
+
+        with patch_setup() as start, patch_teardown() as stop:
+            assert not start.called
+            assert not stop.called
+
+            with config.context() as ctx:
+                assert start.called
+            assert stop.called
