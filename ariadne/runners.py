@@ -15,10 +15,10 @@ class SimpleRunner(Runner):
         if config is None:
             config = BaseConfig
         elif isinstance(config, BaseConfig):
-            msg = "You need to pass config class, not instance. Got {:r}."
+            msg = "You need to pass config class, not instance. Got {0}."
             raise ValueError(msg.format(config))
         elif not issubclass(config, BaseConfig):
-            msg = "Config class must be derived from BaseConfig. Got {:r}."
+            msg = "Config class must be derived from BaseConfig. Got {0}."
             raise ValueError(msg.format(config))
 
         self.config = config()
@@ -26,7 +26,7 @@ class SimpleRunner(Runner):
 
     def add(self, scenario):
         if not isinstance(scenario, Scenario):
-            msg = "You need to add Scenario instances, got {:r}."
+            msg = "You need to add Scenario instances, got {0}."
             raise ValueError(msg.format(scenario))
 
         self.scenarios.append(scenario)
