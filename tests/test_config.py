@@ -39,10 +39,12 @@ class TestConfig:
         patch_setup = lambda: patch.object(config, 'context_setup')
         patch_teardown = lambda: patch.object(config, 'context_teardown')
 
-        with patch_setup() as start, patch_teardown() as stop:
-            assert not start.called
-            assert not stop.called
+        # Python2.6 doesn't support nested with-statement
+        with patch_setup() as start:
+            with patch_teardown() as stop:
+                assert not start.called
+                assert not stop.called
 
-            with config.context() as ctx:
-                assert start.called
-            assert stop.called
+                with config.context() as ctx:
+                    assert start.called
+                assert stop.called
