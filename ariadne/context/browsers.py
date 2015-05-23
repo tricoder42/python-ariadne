@@ -6,7 +6,7 @@ from attrdict import AttrDict
 
 class Splinter(object):
     """
-    Add splinter browser instance to context.
+    Add splinter browser instance and server_url to context.
 
     :param driver_name: The name of browser to use:
                         phantomjs (default), firefox, chrome
@@ -21,6 +21,7 @@ class Splinter(object):
 
         import splinter
         context.update({
-            'browser': splinter.Browser(self.driver_name)
+            'browser': splinter.Browser(self.driver_name),
+            'server_url': 'http://localhost:8000',
         })
         return AttrDict(context)
