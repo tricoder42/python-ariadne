@@ -30,18 +30,33 @@ def test_action_run_not_implemented():
 class TestVisit:
     @pytest.fixture
     def action(self):
-        return Visit('http://google.com')
+        return Visit('/login')
 
     def test_get_url(self, action):
         """ get_url should return target URL. """
 
-        assert action.get_url() == 'http://google.com'
+        assert action.get_url() == '/login'
+
+    def test_get_url_with_server(self, action):
+        """ get_url should return target URL. """
+
+        assert action.get_url('http://localhost/') == 'http://localhost/login'
 
     def test_run(self, action, ctx_browser):
         """ Browser should visit given URL. """
 
         action.run(ctx_browser)
-        assert ctx_browser.browser.visit.called_with('http://google.com')
+        ctx_browser.browser.visit.assert_called_with('/login')
+
+    def test_run_with_server(self, action, ctx_browser):
+        """ Browser should visit given URL. """
+
+        ctx_browser.update({
+            'server_url': 'http://localhost/'
+        })
+
+        action.run(ctx_browser)
+        ctx_browser.browser.visit.assert_called_with('http://localhost/login')
 
 
 class TestFillForm:
