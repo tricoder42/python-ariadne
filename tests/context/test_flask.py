@@ -8,16 +8,25 @@ from flask import Flask
 from ariadne.context.flask import FlaskApp
 
 
-@pytest.fixture
-def flask_app(caplog):
+@pytest.fixture(params=[200, 404])
+def flask_app(request, caplog):
     # Disable flask server logging
     caplog.setLevel(logging.ERROR, 'werkzeug')
-    return Flask(__name__)
+
+    app = Flask(__name__)
+    if request.param == 200:
+        # Add root handler to test that FlaskApp processor can detect running
+        # flask app properly both with and without root handler.
+        app.route('/')(lambda: 'Homepage')
+
+    return app
 
 
 @pytest.fixture
-def processor(flask_app):
-    return FlaskApp(app=flask_app)
+def processor(request, flask_app):
+    app = FlaskApp(app=flask_app)
+    request.addfinalizer(app.stop)
+    return app
 
 
 def test_get_free_port(processor):
