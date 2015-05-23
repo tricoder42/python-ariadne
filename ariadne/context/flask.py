@@ -48,8 +48,8 @@ class FlaskApp(Context):
         self._process.start()
 
         # Wait for server to start
-        for i in range(self.timeout):
-            time.sleep(1)
+        timestep = 0.5
+        for i in range(int(self.timeout / timestep)):
             try:
                 urlopen(self.server_url)
             except HTTPError:
@@ -57,6 +57,7 @@ class FlaskApp(Context):
                 break
             except URLError:
                 " Server is down, we need to wait."
+                time.sleep(timestep)
             else:
                 " No error, server is up."
                 break
@@ -76,10 +77,6 @@ class FlaskApp(Context):
         with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
             s.bind(('', 0))
             return s.getsockname()[1]
-
-    def __del__(self):
-        """ Stop server process automatically when object is destroyed """
-        self.stop()
 
     def __repr__(self):
         return '<Flask app listening at {0}>'.format(self.server_url)
