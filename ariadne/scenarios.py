@@ -8,14 +8,15 @@ class Scenario(object):
     def __init__(self, stories):
         self.stories = stories
 
-    def run(self):
+    def run(self, context=None):
         """
         Run all stories in scenario. Pass shared context through whole scenario.
 
         :return: context dictionary
         """
 
-        context = {}
+        if not context:
+            context = {}
 
         for story in self.stories:
             context = story.run(context) or context
